@@ -18,4 +18,5 @@ export default function SupportPage() {
     descripcion: "",
     prioridad: "P3", // Valor por defecto
   })};
+  //confrmamos que el ticket se ha enviado
   const [submitted, setSubmitted] = useState(false);
