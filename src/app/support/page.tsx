@@ -33,7 +33,7 @@ export default function SupportPage() {
     setTicket(prevTicket => ({
       ...prevTicket,       // Copia los valores previos
       [name]: value,       // Actualiza el campo correspondiente
-    } as Ticket));         // Indicamos el tipo Ticket para TypeScript
+    }));
   };
 
   // Función para manejar el envío del formulario
@@ -42,98 +42,123 @@ export default function SupportPage() {
     setSubmitted(true);     // Cambia el estado para mostrar el resumen
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      {/* Título de la página */}
-      <h1 className="text-3xl font-bold mb-6">Formulario de Soporte</h1>
+  // Función para reiniciar el formulario y permitir crear otro ticket
+  const handleNewTicket = () => {
+    setTicket({
+      nombre: "",
+      email: "",
+      descripcion: "",
+      prioridad: "P3",
+    });
+    setSubmitted(false);
+  };
 
-      {/* Si el ticket no está enviado, mostramos el formulario */}
-      {!submitted ? (
-        <form
-          onSubmit={handleSubmit} // Ejecuta handleSubmit al enviar
-          className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
-        >
-          {/* Campo Nombre */}
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Nombre del cliente</label>
-            <input
-              type="text"
-              name="nombre"
-              value={ticket.nombre}      // Valor ligado al estado
-              onChange={handleChange}    // Maneja cambios en el input
-              className="w-full border rounded px-3 py-2"
-              required                   // Campo obligatorio
-            />
-          </div>
+return (
+  <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+    {/* Título */}
+    <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      Formulario de Soporte
+    </h1>
 
-          {/* Campo Email */}
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={ticket.email}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
-              required
-            />
-          </div>
-
-          {/* Campo Descripción */}
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Descripción del problema</label>
-            <textarea
-              name="descripcion"
-              value={ticket.descripcion}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
-              rows={4}
-              required
-            />
-          </div>
-
-          {/* Selector de Prioridad */}
-          <div className="mb-4">
-            <label className="block mb-1 font-medium">Prioridad</label>
-            <select
-              name="prioridad"
-              value={ticket.prioridad}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
-            >
-              <option value="P0">P0</option>
-              <option value="P1">P1</option>
-              <option value="P2">P2</option>
-              <option value="P3">P3</option>
-            </select>
-          </div>
-
-          {/* Botón Enviar */}
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            Enviar Ticket
-          </button>
-        </form>
-      ) : (
-        // Si el ticket ya fue enviado, mostramos el resumen
-        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Resumen del Ticket</h2>
-          <p><strong>Nombre:</strong> {ticket.nombre}</p>
-          <p><strong>Email:</strong> {ticket.email}</p>
-          <p><strong>Descripción:</strong> {ticket.descripcion}</p>
-          <p><strong>Prioridad:</strong> {ticket.prioridad}</p>
-
-          {/* Botón para crear otro ticket */}
-          <button
-            className="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
-            onClick={() => setSubmitted(false)} // Resetea el estado
-          >
-            Crear otro ticket
-          </button>
+    {!submitted ? (
+      /* Formulario */
+      <form
+        className="bg-white shadow-md rounded-2xl p-6 w-full max-w-md"
+        onSubmit={handleSubmit}
+      >
+        {/* Campo Nombre */}
+        <div className="mb-4">
+          <label className="block mb-1 font-medium text-gray-700">
+            Nombre del cliente
+          </label>
+          <input
+            type="text"
+            name="nombre"
+            value={ticket.nombre}
+            onChange={handleChange}
+            placeholder="Ej: Juan Pérez"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            required
+          />
         </div>
-      )}
-    </div>
-  );
-}
+
+        {/* Campo Email */}
+        <div className="mb-4">
+          <label className="block mb-1 font-medium text-gray-700">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={ticket.email}
+            onChange={handleChange}
+            placeholder="Ej: correo@dominio.com"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            required
+          />
+        </div>
+
+        {/* Campo Descripción */}
+        <div className="mb-4">
+          <label className="block mb-1 font-medium text-gray-700">
+            Descripción del problema
+          </label>
+          <textarea
+            name="descripcion"
+            value={ticket.descripcion}
+            onChange={handleChange}
+            placeholder="Describe tu problema..."
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            rows={4}
+            required
+          />
+        </div>
+
+        {/* Selector de Prioridad */}
+        <div className="mb-4">
+          <label className="block mb-1 font-medium text-gray-700">
+            Prioridad
+          </label>
+          <select
+            name="prioridad"
+            value={ticket.prioridad}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          >
+            <option value="P0">P0 (Crítico)</option>
+            <option value="P1">P1 (Alto)</option>
+            <option value="P2">P2 (Medio)</option>
+            <option value="P3">P3 (Bajo)</option>
+          </select>
+        </div>
+
+        {/* Botón Enviar */}
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded-lg w-full shadow-md"
+        >
+          Enviar Ticket
+        </button>
+      </form>
+    ) : (
+      /* Resumen del ticket */
+      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-md mt-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Resumen del Ticket
+        </h2>
+        <p><strong>Nombre:</strong> {ticket.nombre}</p>
+        <p><strong>Email:</strong> {ticket.email}</p>
+        <p><strong>Descripción:</strong> {ticket.descripcion}</p>
+        <p><strong>Prioridad:</strong> {ticket.prioridad}</p>
+
+        {/* Botón para crear otro ticket */}
+        <button
+          onClick={handleNewTicket}
+          className="mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-lg w-full shadow-md"
+        >
+          Crear otro ticket
+        </button>
+      </div>
+    )}
+  </div>
+)};
