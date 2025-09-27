@@ -17,4 +17,5 @@ export default function SupportPage() {
     email: "",
     descripcion: "",
     prioridad: "P3", // Valor por defecto
-  });
+  })};
+  const [submitted, setSubmitted] = useState(false);
