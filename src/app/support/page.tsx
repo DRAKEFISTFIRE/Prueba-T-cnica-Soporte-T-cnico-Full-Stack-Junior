@@ -141,24 +141,52 @@ return (
         </button>
       </form>
     ) : (
-      /* Resumen del ticket */
-      <div className="bg-white shadow-md rounded-2xl p-6 w-full max-w-md mt-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Resumen del Ticket
-        </h2>
-        <p><strong>Nombre:</strong> {ticket.nombre}</p>
-        <p><strong>Email:</strong> {ticket.email}</p>
-        <p><strong>Descripción:</strong> {ticket.descripcion}</p>
-        <p><strong>Prioridad:</strong> {ticket.prioridad}</p>
+/* Resumen del ticket */
+<div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md mt-6">
+  <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">
+    Resumen del Ticket
+  </h2>
 
-        {/* Botón para crear otro ticket */}
-        <button
-          onClick={handleNewTicket}
-          className="mt-4 bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-lg w-full shadow-md"
-        >
-          Crear otro ticket
-        </button>
-      </div>
+  <div className="space-y-3 text-gray-700">
+    <p>
+      <span className="font-semibold text-gray-800">Nombre:</span>{" "}
+      {ticket.nombre}
+    </p>
+    <p>
+      <span className="font-semibold text-gray-800">Email:</span>{" "}
+      {ticket.email}
+    </p>
+    <p>
+      <span className="font-semibold text-gray-800">Descripción:</span>{" "}
+      {ticket.descripcion}
+    </p>
+    <p>
+      <span className="font-semibold text-gray-800">Prioridad:</span>{" "}
+      <span
+        className={`px-2 py-1 rounded text-white text-sm ${
+          ticket.prioridad === "P0"
+            ? "bg-red-600"
+            : ticket.prioridad === "P1"
+            ? "bg-orange-500"
+            : ticket.prioridad === "P2"
+            ? "bg-yellow-500"
+            : "bg-green-500"
+        }`}
+      >
+        {ticket.prioridad}
+      </span>
+    </p>
+  </div>
+
+  {/* Botón para crear otro ticket */}
+  <button
+    onClick={handleNewTicket}
+    className="mt-6 bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-lg w-full shadow-md"
+  >
+    Crear otro ticket
+  </button>
+</div>
+
     )}
   </div>
 )};
